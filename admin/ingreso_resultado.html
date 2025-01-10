@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="ingreso_resultado.css">
+    <title>Control de Ingresos</title>
+</head>
+<body>
+    <div class="linea"></div>
+
+    <!-- Botón de menú (hamburger) -->
+    <div class="menu-btn" id="menu-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <!-- Barra lateral de navegación -->
+    <div class="sidebar" id="sidebar">
+        <h3>Administrador</h3>
+        <ul>
+        	<li><a href="ingresos.html" data-target="Registrar_ingresos">Registrar Ingresos</a></li>
+            <li><a href="#" data-target="gastos">Gastos</a></li>
+            <li><a href="#" data-target="caja">Caja</a></li>
+            <li><a href="#" data-target="empleados">Empleados</a></li>
+            <li><a href="#" data-target="nominas">Nominas</a></li>
+            <li><a href="#" data-target="reportes">Reportes</a></li>
+            <li><a href="#" data-target="pyme">PYME</a></li>
+            <li><a href="admin/creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+            <li><a href="#" data-target="libreton">Libreton</a></li>
+            <li><a href="#" data-target="ganado">Ganado</a></li>
+        </ul>
+
+    </div>
+    
+
+    <header>
+        <h1 class="elegantshadow">Control de Ingresos</h1><br>
+    </header>
+<div class="login-container">
+    <div class="login-box">
+    <div class="table-container">
+        <table id="tabla-ingreso">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Concepto</th>
+                    <th>Importe</th>
+                    <th>Origen</th>
+                    <th>Cuenta</th>
+                    <th>Forma de Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se insertarán los datos dinámicamente -->
+            </tbody>
+        </table>
+    </div>    </div>
+</div>
+
+    <script>
+        // Obtener los datos guardados
+        const ingreso = JSON.parse(localStorage.getItem('ingreso'));
+        
+        if (ingreso) {
+            // Crear una fila de tabla con los datos
+            const tableBody = document.querySelector('#tabla-ingreso tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${ingreso.fecha}</td>
+                <td>${ingreso.concepto}</td>
+                <td>${ingreso.importe}</td>
+                <td>${ingreso.lugar}</td>
+                <td>${ingreso.cuenta}</td>
+                <td>${ingreso.formaPago}</td>
+            `;
+            tableBody.appendChild(row);
+        } else {
+            // Si no hay datos, mostrar un mensaje
+            const tableBody = document.querySelector('#tabla-ingreso tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="6">No hay datos disponibles</td>`;
+            tableBody.appendChild(row);
+        }
+
+             // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
+        });
+
+document.getElementById('menu-btn').addEventListener('click', function() {
+    var menu = document.getElementById('menu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+});
+    </script>
+</body>
+</html>
