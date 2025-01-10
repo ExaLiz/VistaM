@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #093c7d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+    position: relative;
+}
+
+.l {
+    justify-content: center;
+    background: linear-gradient(45deg, #230202, #690a0a, #ad1818, #690a0a, #230202); 
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    float: left;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    width: 98.4%;
+    height: 25px;
+
+      background-size: 500% 100%; 
+  animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    width: 480px;
+    text-align: center;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: fadeIn 1s ease-out;
+}
+
+
+ /* Estilos para la tabla */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+
+
+    table th, table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+    }
+
+    table th {
+        background-color: #093c7d;
+        font-weight: bold;
+    }
+
+    table td {
+        background-color: rgba(255, 255, 255, 0.1);
+
+    }
+
+    /* Estilos para los botones de acción */
+    .editBtn, .deleteBtn {
+        padding: 6px 12px;
+        margin-right: 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .editBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .deleteBtn {
+        background-color: #f44336;
+        color: white;
+        top: 20px;
+    }
+
+    .editBtn:hover {
+        background-color: #45a049;
+    }
+
+    .deleteBtn:hover {
+        background-color: #e53935;
+    }
+
+    /* Estilos para las filas de la tabla */
+    table tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    table tr:hover {
+        background-color: #004090;
+    }
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    animation: fadeInText 1s ease-out;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #ddd;
+    opacity: 0;
+    animation: fadeInText 1s ease-out 0.5s forwards;
+}
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+     background-color: #093c7d;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    animation: fadeInText 1s ease-out 1s forwards;
+}
+
+select:hover, input:hover {
+    background-color: #1158b1;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3B82F6;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    animation: fadeInText 1s ease-out 1.5s forwards;
+}
+
+button:hover {
+    background-color: #2563EB;
+    transform: translateY(-5px);
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-box:hover {
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.6);
+    transform: translateY(-10px);
+}
+
+.login-container {
+    opacity: 0;
+    animation: fadeIn 2s ease-out forwards;
+}
+
+    .wave {
+      position: absolute;
+      display: block;
+      left: -180px;
+      bottom: 0;
+      /*width: 200px;*/
+      /*height: 200px;*/
+      /*width: 100%;*/
+      /*border-radius: 50%;*/
+      /*background:rgba(0,0,0, .3);*/
+      width: 2402px;
+      height: 400px;
+      background: url(https://static.platzi.com/media/files/waves_c8551f5d-ecf6-4a81-ae1d-f3a0ad55ba10.png) center bottom no-repeat;
+      animation: 5s wave ease-in-out infinite alternate;
+      top: 300px;
+    }
+    .wave.a {
+      background-position: 0 -854px;
+    }
+    .wave.b {
+      background-position: 0 -427px;
+      animation-delay: .6s;
+    }
+    .wave.c {
+      background-position: 0 0;
+      animation-delay: 1.2s;
+    }
+    /*.container {
+      position: absolute;
+    }*/
+    @keyframes wave {
+      0% {
+        transform: translate(0 , 0);
+      }
+      50% {
+        transform: translate(-80px, 30px);
+      }
+      100% {
+        transform: translate(160px, -60px);
+      }
+    }
+
+
+    /* Estilos para el Panel de Administración */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+/* Estilo para el menú */
+
+.menu-container {
+    position: relative;
+}
+
+.sidebar {
+    display: none; /* El menú está oculto por defecto */
+    background-color: #003366; /* Azul oscuro para el fondo del menú */
+    width: 200px;
+    position: absolute;
+    top: 55px; /* Deja espacio debajo del botón */
+    left: 0px;
+    z-index: 1000; /* Asegura que el menú esté encima de otros elementos */
+    padding: 10px 0;
+    transition: max-height 0.3s ease; /* Animación para la apertura */
+    max-height: 0; /* El menú no tiene altura al principio */
+    overflow: hidden; /* Oculta contenido fuera del área visible */
+}
+
+.sidebar.open {
+    display: block;
+    max-height: 480px; /* Definir la altura máxima cuando está abierto */
+}
+
+.sidebar h3 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Tamaño de fuente más grande para el título */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    color: #e0e0e0; /* Color de texto sutil y profesional */
+    text-decoration: none;
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: color 0.3s ease, padding-left 0.3s ease; /* Animación suave */
+}
+
+.sidebar ul li a:hover {
+    color: #007bff; /* Azul brillante para el texto cuando se pasa el cursor */
+    padding-left: 15px; /* Efecto de desplazamiento cuando pasa el cursor */
+}
+
+/* Estilo para el botón del menú (hamburger) */
+.menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Posicionado sobre la barra lateral */
+    z-index: 1000; /* Asegura que el botón esté sobre otros elementos */
+}
+
+.menu-btn .bar {
+    background-color: white;
+    height: 5px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Asegurarse de que el menú y el botón estén bien en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .menu-btn {
+        display: flex; /* Mostrar el botón solo en pantallas pequeñas */
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 200px;
+        height: auto;
+        background-color: #003366; /* Azul oscuro para el fondo del menú */
+        transition: max-height 0.3s ease;
+        max-height: 0;
+        overflow: hidden;
+    }
+}
