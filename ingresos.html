@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="ingresos.css">
+    <title>Ingresos</title>
+</head>
+<body>
+    <!-- Línea superior con gradiente -->
+    <div class="linea"></div>
+
+    <!-- Botón de menú (hamburger) -->
+    <div class="menu-btn" id="menu-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <!-- Barra lateral de navegación -->
+    <div class="sidebar" id="sidebar">
+        <h3>Administrador</h3>
+        <ul>
+            <li><a href="ingreso_resultado.html" data-target="ingreso_resultado">Ver Ingresos</a></li>
+            <li><a href="egresos.html" data-target="egresos">Egresos</a></li>
+            <li><a href="egreso_resultado.html" data-target="egreso_resultado">Ver Egresos</a></li>
+            <li><a href="#" data-target="gastos">Gastos</a></li>
+            <li><a href="#" data-target="caja">Caja</a></li>
+            <li><a href="#" data-target="empleados">Empleados</a></li>
+            <li><a href="#" data-target="nominas">Nominas</a></li>
+            <li><a href="#" data-target="reportes">Reportes</a></li>
+            <li><a href="#" data-target="pyme">PYME</a></li>
+            <li><a href="admin/creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+            <li><a href="#" data-target="libreton">Libreton</a></li>
+            <li><a href="#" data-target="ganado">Ganado</a></li>
+        </ul>
+    </div>
+
+    <header>
+        <h1 class="elegantshadow">Formulario de Ingresos</h1><br>
+    </header>
+    
+    <div class="form-container">
+        <div class="form-box">
+            <form id="form-ingresos">
+                <div class="form-row">
+                    <label for="fecha-ingreso">Fecha:</label>
+                    <input type="date" id="fecha-ingreso" required>
+
+                    <label for="concepto-ingreso">Concepto:</label>
+                    <input type="text" id="concepto-ingreso" placeholder="Descripción del concepto" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="importe-ingreso">Importe:</label>
+                    <input type="number" id="importe-ingreso" placeholder="Monto" required>
+
+                    <label for="lugar-ingreso">Origen:</label>
+                    <select id="lugar-ingreso" required>
+                        <option value="agua_blanca">Agua Blanca</option>
+                        <option value="cuatunalco">Cuatunalco</option>
+                        <option value="rancho">Rancho</option>
+                        <option value="villa">Villa</option>
+                        <option value="casa_pochutla">Casa Pochutla</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="cuenta-ingreso">Cuenta:</label>
+                    <select id="cuenta-ingreso" required>
+                        <option value="pyme">PYME</option>
+                        <option value="libreton">Libreton</option>
+                        <option value="no_aplica">No Aplica</option>
+                    </select>
+
+                    <label for="forma_pago">Forma de pago:</label>
+                    <select id="forma_pago" required>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="tarjeta_credito">Tarjeta de Crédito</option>
+                        <option value="tarjeta_debito">Tarjeta de Débito</option>
+                    </select>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit">Guardar Ingreso</button>
+                    <button type="button" id="vaciar-form">Vaciar Formulario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('form-ingresos');
+        const vaciarFormBtn = document.getElementById('vaciar-form');
+        
+        // Guardar datos
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fecha = document.getElementById('fecha-ingreso').value;
+            const concepto = document.getElementById('concepto-ingreso').value;
+            const importe = document.getElementById('importe-ingreso').value;
+            const lugar = document.getElementById('lugar-ingreso').value;
+            const cuenta = document.getElementById('cuenta-ingreso').value;
+            const formaPago = document.getElementById('forma_pago').value;
+
+            const ingreso = {
+                fecha,
+                concepto,
+                importe,
+                lugar,
+                cuenta,
+                formaPago
+            };
+
+            // Guardar en localStorage
+            localStorage.setItem('ingreso', JSON.stringify(ingreso));
+
+            // Vaciar formulario automáticamente
+            form.reset();
+        });
+
+        // Vaciar formulario manualmente (opcional)
+        vaciarFormBtn.addEventListener('click', () => {
+            form.reset();
+        });
+
+        // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
+        });
+    </script>
+</body>
+</html>
