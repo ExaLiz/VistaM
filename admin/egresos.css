@@ -1,0 +1,343 @@
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #093c7d;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+
+                /* Estilos para el mensaje de notificación */
+        .notification {
+               position: fixed;
+    top: 70px; /* Separación desde la parte superior */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    width: 80%; /* Tamaño adaptado al ancho de la pantalla */
+    max-width: 600px; /* Tamaño máximo */
+            display: none;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            transition: opacity 0.3s ease-in-out; /* Transición suave */
+            z-index: 9999;
+        }
+        .success {
+            background-color: #002b9e;
+            color: white;
+        }
+        .error {
+            background-color: #455e9e;
+            color: white;
+        }
+
+    /* Estilos para el Panel de Administración */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
+
+/* Estilo para el menú */
+
+.menu-container {
+    position: relative;
+}
+
+.sidebar {
+    display: none; /* El menú está oculto por defecto */
+    background-color: #003366; /* Azul oscuro para el fondo del menú */
+    width: 200px;
+    position: absolute;
+    top: 55px; /* Deja espacio debajo del botón */
+    left: 0px;
+    z-index: 1000; /* Asegura que el menú esté encima de otros elementos */
+    padding: 10px 0;
+    transition: max-height 0.3s ease; /* Animación para la apertura */
+    max-height: 0; /* El menú no tiene altura al principio */
+    overflow: hidden; /* Oculta contenido fuera del área visible */
+}
+
+.sidebar.open {
+    display: block;
+    max-height: 480px; /* Definir la altura máxima cuando está abierto */
+}
+
+.sidebar h3 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Tamaño de fuente más grande para el título */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px;
+    color: #e0e0e0; /* Color de texto sutil y profesional */
+    text-decoration: none;
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: color 0.3s ease, padding-left 0.3s ease; /* Animación suave */
+}
+
+.sidebar ul li a:hover {
+    color: #007bff; /* Azul brillante para el texto cuando se pasa el cursor */
+    padding-left: 15px; /* Efecto de desplazamiento cuando pasa el cursor */
+}
+
+/* Estilo para el botón del menú (hamburger) */
+.menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Posicionado sobre la barra lateral */
+    z-index: 1000; /* Asegura que el botón esté sobre otros elementos */
+}
+
+.menu-btn .bar {
+    background-color: white;
+    height: 5px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Asegurarse de que el menú y el botón estén bien en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .menu-btn {
+        display: flex; /* Mostrar el botón solo en pantallas pequeñas */
+    }
+
+    .sidebar {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 200px;
+        height: auto;
+        background-color: #003366; /* Azul oscuro para el fondo del menú */
+        transition: max-height 0.3s ease;
+        max-height: 0;
+        overflow: hidden;
+    }
+}
+
+
+
+.wave {
+      position: absolute;
+      display: block;
+      left: -180px;
+      bottom: 0;
+      /*width: 200px;*/
+      /*height: 200px;*/
+      /*width: 100%;*/
+      /*border-radius: 50%;*/
+      /*background:rgba(0,0,0, .3);*/
+      width: 120%;
+      height: 427px;
+      background: url(https://static.platzi.com/media/files/waves_c8551f5d-ecf6-4a81-ae1d-f3a0ad55ba10.png) center bottom no-repeat;
+      animation: 5s wave ease-in-out infinite alternate;
+    }
+    .wave.a {
+      background-position: 0 -854px;
+    }
+    .wave.b {
+      background-position: 0 -427px;
+      animation-delay: .6s;
+    }
+    .wave.c {
+      background-position: 0 0;
+      animation-delay: 1.2s;
+    }
+    /*.container {
+      position: absolute;
+    }*/
+    @keyframes wave {
+      0% {
+        transform: translate(0 , 0);
+      }
+      50% {
+        transform: translate(-80px, 30px);
+      }
+      100% {
+        transform: translate(160px, -60px);
+      }
+    }
+
+
+
+    .linea {
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(90deg, #031d59, #031642, #082976, #031642, #031d59);
+      background-size: 400% 100%;
+      animation: cambioColores 5s linear infinite;
+    }
+
+    @keyframes cambioColores {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 0%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+        .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.form-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 15px;
+    width: 1000px;
+    text-align: center;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+    animation: fadeIn 1s ease-out;
+}
+
+select:hover, input:hover {
+    background-color: #1158b1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Agrupar cada par de label e input/select en una fila */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;  /* Espacio entre los elementos */
+}
+
+/* Reducir el tamaño de los labels */
+.form-row label {
+    width: 150px;  /* Ancho fijo para el label */
+    font-size: 1em;
+    font-weight: 600;
+    color: white;
+}
+
+/* Ajuste del tamaño de los inputs/select */
+.form-row input, .form-row select {
+    width: 45%;  /* Ajustar el ancho para que quepan dos en una fila */
+    padding: 10px;
+    font-size: 0.9em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    background-color: #093c7d;
+    color: white;
+}
+
+/* Estilo especial para el input de fecha */
+input[type="date"] {
+    width: 150px;  /* Reducido tamaño de fecha */
+}
+
+/* Focus en los campos */
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #0049f0;
+    outline: none;
+}
+
+form button {
+    background-color: #0049f0;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #4279f7;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.btn-container button {
+    width: 48%;
+}
+
+.datos ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.datos ul li {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.datos ul li strong {
+    font-weight: bold;
+}
+
+
+
+h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 30px;
+  padding: -40px 0px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  
+  &.elegantshadow {
+  color: #031d59;
+  letter-spacing: .15em;
+  text-shadow:  
+    -2px 4px 1px #0c4fa5, 
+    -3px 6px 1px #0f60c8, 
+    -4px 8px 1px #76adf5, 
+    -5px 10px 1px #9dc4f7;
+
+}
+
+  &.insetshadow {
+    color: #d1d0d0;
+    background-color: d1d0d0;
+    letter-spacing: .1em;
+    text-shadow: 
+      -1px -1px 1px #8e8e8e, 
+      2px 2px 1px #e1e1e1;
+  }
+
