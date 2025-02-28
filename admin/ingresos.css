@@ -9,6 +9,33 @@
             margin: 0;
         }
 
+
+                /* Estilos para el mensaje de notificación */
+        .notification {
+               position: fixed;
+    top: 70px; /* Separación desde la parte superior */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    width: 80%; /* Tamaño adaptado al ancho de la pantalla */
+    max-width: 600px; /* Tamaño máximo */
+            display: none;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: center;
+            transition: opacity 0.3s ease-in-out; /* Transición suave */
+            z-index: 9999;
+        }
+        .success {
+            background-color: #002b9e;
+            color: white;
+        }
+        .error {
+            background-color: #455e9e;
+            color: white;
+        }
+
     /* Estilos para el Panel de Administración */
 .dashboard-container {
     display: flex;
@@ -38,7 +65,7 @@
 
 .sidebar.open {
     display: block;
-    max-height: 480px; /* Definir la altura máxima cuando está abierto */
+    max-height: 540px; /* Definir la altura máxima cuando está abierto */
 }
 
 .sidebar h3 {
@@ -110,47 +137,6 @@
 }
 
 
-
-.wave {
-      position: absolute;
-      display: block;
-      left: -180px;
-      bottom: 0;
-      /*width: 200px;*/
-      /*height: 200px;*/
-      /*width: 100%;*/
-      /*border-radius: 50%;*/
-      /*background:rgba(0,0,0, .3);*/
-      width: 120%;
-      height: 427px;
-      background: url(https://static.platzi.com/media/files/waves_c8551f5d-ecf6-4a81-ae1d-f3a0ad55ba10.png) center bottom no-repeat;
-      animation: 5s wave ease-in-out infinite alternate;
-    }
-    .wave.a {
-      background-position: 0 -854px;
-    }
-    .wave.b {
-      background-position: 0 -427px;
-      animation-delay: .6s;
-    }
-    .wave.c {
-      background-position: 0 0;
-      animation-delay: 1.2s;
-    }
-    /*.container {
-      position: absolute;
-    }*/
-    @keyframes wave {
-      0% {
-        transform: translate(0 , 0);
-      }
-      50% {
-        transform: translate(-80px, 30px);
-      }
-      100% {
-        transform: translate(160px, -60px);
-      }
-    }
 
 
 
