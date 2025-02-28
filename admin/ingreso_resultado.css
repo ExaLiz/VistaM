@@ -37,7 +37,7 @@ h1 {
 
 .sidebar.open {
     display: block;
-    max-height: 480px; /* Definir la altura máxima cuando está abierto */
+    max-height: 540px; /* Definir la altura máxima cuando está abierto */
 }
 
 .sidebar h3 {
@@ -141,44 +141,7 @@ h1 {
     background-color: #004090;
 }
 
-/* Fondo de onda */
-.wave {
-    position: absolute;
-    display: block;
-    left: -180px;
-    bottom: 0;
-    width: 120%;
-    height: 427px;
-    background: url(https://static.platzi.com/media/files/waves_c8551f5d-ecf6-4a81-ae1d-f3a0ad55ba10.png) center bottom no-repeat;
-    animation: 5s wave ease-in-out infinite alternate;
-}
 
-.wave.a {
-    background-position: 0 -854px;
-}
-
-.wave.b {
-    background-position: 0 -427px;
-    animation-delay: .6s;
-}
-
-.wave.c {
-    background-position: 0 0;
-    animation-delay: 1.2s;
-}
-
-/* Animación de la onda */
-@keyframes wave {
-    0% {
-        transform: translate(0, 0);
-    }
-    50% {
-        transform: translate(-80px, 30px);
-    }
-    100% {
-        transform: translate(160px, -60px);
-    }
-}
 
 /* Línea superior */
 .linea {
@@ -229,47 +192,6 @@ h1 {
         -1px -1px 1px #8e8e8e, 
         2px 2px 1px #e1e1e1;
 }
- .wave {
-      position: absolute;
-      display: block;
-      left: -180px;
-      bottom: 0;
-      /*width: 200px;*/
-      /*height: 200px;*/
-      /*width: 100%;*/
-      /*border-radius: 50%;*/
-      /*background:rgba(0,0,0, .3);*/
-      width: 2402px;
-      height: 400px;
-      background: url(https://static.platzi.com/media/files/waves_c8551f5d-ecf6-4a81-ae1d-f3a0ad55ba10.png) center bottom no-repeat;
-      animation: 5s wave ease-in-out infinite alternate;
-      top: 300px;
-    }
-    .wave.a {
-      background-position: 0 -854px;
-    }
-    .wave.b {
-      background-position: 0 -427px;
-      animation-delay: .6s;
-    }
-    .wave.c {
-      background-position: 0 0;
-      animation-delay: 1.2s;
-    }
-    /*.container {
-      position: absolute;
-    }*/
-    @keyframes wave {
-      0% {
-        transform: translate(0 , 0);
-      }
-      50% {
-        transform: translate(-80px, 30px);
-      }
-      100% {
-        transform: translate(160px, -60px);
-      }
-    }
 
 
 .login-container {
@@ -291,4 +213,66 @@ h1 {
     transition: transform 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
     animation: fadeIn 1s ease-out;
 }
+
+
+/* Fila seleccionada con un tono azul más claro */
+#tabla-ingreso tr.selected {
+    background-color: #004090; 
+}
+/* Contenedor de los botones de acción */
+.actions-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px; 
+    margin-top: 20px; 
+}
+/* Estilos generales para los botones */
+button {
+    padding: 10px 20px;
+    font-size: 16px; 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    width: 150px; 
+    margin-bottom: 10px; 
+}
+
+/* Botón Editar */
+button.edit-btn {
+    background-color: #0130a9; 
+}
+
+/* Botón Eliminar */
+button.delete-btn {
+    background-color: #0130a9; 
+}
+
+/* Estilo de los botones cuando están deshabilitados */
+button:disabled {
+    background-color: #0130a9; 
+    cursor: not-allowed; 
+}
+
+/* Efecto hover para los botones */
+button:hover:not(:disabled) {
+    background-color: #0130a9; 
+}
+
+/* Efecto hover para el botón Eliminar */
+button.delete-btn:hover:not(:disabled) {
+    background-color: #0130a9; 
+}
+
+/* Contenedor para los botones de acción (apilados uno sobre otro y alineados a la derecha) */
+.actions-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: flex-end; 
+    margin-top: 20px; 
+    margin-right: 20px; 
+}
+
 
