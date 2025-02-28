@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="ingreso_resultado.css">
+    <link rel="icon" href="img/vistamar.jpeg"  />
     <title>Control de Ingresos</title>
 </head>
 <body>
-    <div class="linea"></div>
-
-    <!-- Botón de menú (hamburger) -->
+       <div class="linea">
+            <!-- Botón de menú (hamburger) -->
     <div class="menu-btn" id="menu-btn">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -20,87 +20,138 @@
     <div class="sidebar" id="sidebar">
         <h3>Administrador</h3>
         <ul>
-            <li><a href="inicio/administrador.html" data-target="administrador">Inicio</a></li>
-        	<li><a href="ingresos.html" data-target="Registrar_ingresos">Registrar Ingresos</a></li>
-            <li><a href="#" data-target="gastos">Gastos</a></li>
-            <li><a href="#" data-target="caja">Caja</a></li>
-            <li><a href="#" data-target="empleados">Empleados</a></li>
-            <li><a href="#" data-target="nominas">Nominas</a></li>
-            <li><a href="#" data-target="reportes">Reportes</a></li>
-            <li><a href="#" data-target="pyme">PYME</a></li>
-            <li><a href="creacion_usuarios.html" data-target="creacion_usuarios">Gestión de usuarios</a></li>
-            <li><a href="#" data-target="libreton">Libreton</a></li>
-            <li><a href="#" data-target="ganado">Ganado</a></li>
+            <li><a href="administrador.html" data-target="administrador">Inicio</a></li>
+            <li><a href="creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+            <li><a href="ingresos.html" data-target="registrar_resultado">Registrar Ingresos</a></li>
+            <li><a href="egresos.html" data-target="egresos">Registrar Egresos</a></li>
+            <li><a href="egreso_resultado.html" data-target="controlingresos">Ver Egresos</a></li>
+            <li><a href="gastos.html" data-target="gastos">Gastos</a></li>
+            <li><a href="caja.html" data-target="caja">Caja</a></li>
+            <li><a href="nominas.html" data-target="nominas">Nominas</a></li>
+            <li><a href="reportes.html" data-target="reportes">Reportes</a></li>
+            <li><a href="pyme.html" data-target="pyme">PYME</a></li>
+            <li><a href="libreton.html" data-target="libreton">Libreton</a></li>
+            <li><a href="ganado.html" data-target="ganado">Ganado</a></li>
         </ul>
-
     </div>
-    
 
+</div>
     <header>
         <h1 class="elegantshadow">Control de Ingresos</h1><br>
     </header>
-<div class="login-container">
-    <div class="login-box">
-    <div class="table-container">
-        <table id="tabla-ingreso">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Concepto</th>
-                    <th>Importe</th>
-                    <th>Origen</th>
-                    <th>Cuenta</th>
-                    <th>Forma de Pago</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se insertarán los datos dinámicamente -->
-            </tbody>
-        </table>
-    </div>    </div>
-</div>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <div class="table-container">
+                <table id="tabla-ingreso">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Importe</th>
+                            <th>Origen</th>
+                            <th>Cuenta</th>
+                            <th>Forma de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se insertarán los datos dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botones de Editar y Eliminar fuera de la tabla -->
+            <div class="actions-container">
+                <button id="edit-btn" disabled>Editar</button>
+                <button id="delete-btn" disabled>Eliminar</button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Obtener los datos guardados
-        const ingreso = JSON.parse(localStorage.getItem('ingreso'));
-        
-        if (ingreso) {
-            // Crear una fila de tabla con los datos
-            const tableBody = document.querySelector('#tabla-ingreso tbody');
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${ingreso.fecha}</td>
-                <td>${ingreso.concepto}</td>
-                <td>${ingreso.importe}</td>
-                <td>${ingreso.lugar}</td>
-                <td>${ingreso.cuenta}</td>
-                <td>${ingreso.formaPago}</td>
-            `;
-            tableBody.appendChild(row);
+        const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos')) || [];
+        const tableBody = document.querySelector('#tabla-ingreso tbody');
+        const editBtn = document.getElementById('edit-btn');
+        const deleteBtn = document.getElementById('delete-btn');
+        let selectedIndex = null; // Almacenar el índice del registro seleccionado
+
+        if (ingresosGuardados.length > 0) {
+            ingresosGuardados.forEach((ingreso, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${ingreso.fecha}</td>
+                    <td>${ingreso.concepto}</td>
+                    <td>${ingreso.importe}</td>
+                    <td>${ingreso.lugar}</td>
+                    <td>${ingreso.cuenta}</td>
+                    <td>${ingreso.formaPago}</td>
+                `;
+                row.setAttribute('data-index', index);  // Asignar un atributo de índice
+                tableBody.appendChild(row);
+            });
         } else {
-            // Si no hay datos, mostrar un mensaje
-            const tableBody = document.querySelector('#tabla-ingreso tbody');
             const row = document.createElement('tr');
             row.innerHTML = `<td colspan="6">No hay datos disponibles</td>`;
             tableBody.appendChild(row);
         }
 
-             // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+        // Seleccionar el registro al hacer clic en una fila
+        tableBody.addEventListener('click', function(event) {
+            const row = event.target.closest('tr');
+            if (row) {
+                const index = row.getAttribute('data-index');
+
+                // Resaltar la fila seleccionada
+                document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+                row.classList.add('selected');
+                
+                selectedIndex = index; // Almacenar el índice de la fila seleccionada
+
+                // Habilitar los botones de edición y eliminación
+                editBtn.disabled = false;
+                deleteBtn.disabled = false;
+            }
+        });
+
+        // Función para eliminar el registro seleccionado
+        deleteBtn.addEventListener('click', function() {
+            if (selectedIndex !== null) {
+                ingresosGuardados.splice(selectedIndex, 1); // Eliminar el registro del arreglo
+                localStorage.setItem('ingresos', JSON.stringify(ingresosGuardados)); // Guardar los cambios en localStorage
+                location.reload(); // Recargar la página para actualizar la tabla
+            }
+        });
+
+// Función para editar el registro seleccionado
+editBtn.addEventListener('click', function() {
+    if (selectedIndex !== null) {
+        // Guardar el índice del registro que estamos editando en localStorage
+        localStorage.setItem('editIndex', selectedIndex);
+
+        // Redirigir a la página de formulario para editar
+        window.location.href = 'ingresos.html';
+    }
+});
+
+
+        // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
         const menuBtn = document.getElementById('menu-btn');
         const sidebar = document.getElementById('sidebar');
 
         menuBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
+            sidebar.classList.toggle('open');
         });
 
-document.getElementById('menu-btn').addEventListener('click', function() {
-    var menu = document.getElementById('menu');
-    if (menu.style.display === 'block') {
-        menu.style.display = 'none';
-    } else {
-        menu.style.display = 'block';
-    }
+        // Añadir la clase 'selected' al hacer clic en una fila
+const rows = document.querySelectorAll('#tabla-ingreso tr');
+rows.forEach(row => {
+    row.addEventListener('click', function() {
+        rows.forEach(r => r.classList.remove('selected')); // Elimina la clase de todas las filas
+        this.classList.add('selected'); // Añade la clase solo a la fila seleccionada
+    });
 });
+
     </script>
+
 </body>
 </html>
