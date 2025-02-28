@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="ingresos.css">
+    <link rel="icon" href="img/vistamar.jpeg" />
     <title>Ingresos</title>
 </head>
 <body>
     <!-- Línea superior con gradiente -->
-    <div class="linea"></div>
-
-    <!-- Botón de menú (hamburger) -->
+    <div class="linea">
+            <!-- Botón de menú (hamburger) -->
     <div class="menu-btn" id="menu-btn">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -21,26 +21,22 @@
     <div class="sidebar" id="sidebar">
         <h3>Administrador</h3>
         <ul>
-            <li><a href="inicio/administrador.html" data-target="administrador">Inicio</a></li>
-            <li><a href="ingreso_resultado.html" data-target="ingreso_resultado">Ver Ingresos</a></li>
-            <li><a href="egresos.html" data-target="egresos">Egresos</a></li>
-            <li><a href="egreso_resultado.html" data-target="egreso_resultado">Ver Egresos</a></li>
-            <li><a href="#" data-target="gastos">Gastos</a></li>
-            <li><a href="#" data-target="caja">Caja</a></li>
-            <li><a href="#" data-target="empleados">Empleados</a></li>
-            <li><a href="#" data-target="nominas">Nominas</a></li>
-            <li><a href="#" data-target="reportes">Reportes</a></li>
-            <li><a href="#" data-target="pyme">PYME</a></li>
             <li><a href="admin/creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
-            <li><a href="#" data-target="libreton">Libreton</a></li>
-            <li><a href="#" data-target="ganado">Ganado</a></li>
+            <li><a href="admin/ingreso_resultado.html" data-target="ingreso_resultado">Ver Ingresos</a></li>
+            <li><a href="admin/egresos.html" data-target="egresos">Registrar Egresos</a></li>
+            <li><a href="admin/egreso_resultado.html" data-target="controlingresos">Ver Egresos</a></li>
+            <li><a href="admin/gastos.html" data-target="gastos">Gastos</a></li>
+            <li><a href="admin/nominas.html" data-target="nominas">Nominas</a></li>
+            <li><a href="admin/menu3.html" data-target="reportes">Reportes</a></li>
+            <li><a href="admin/ganado.html" data-target="ganado">Ganado</a></li>
         </ul>
     </div>
 
+</div>
     <header>
-        <h1 class="elegantshadow">Formulario de Ingresos</h1><br>
+        <h1 class="elegantshadow">Formulario de Ingresos</h1><br><br><br>
     </header>
-    
+
     <div class="form-container">
         <div class="form-box">
             <form id="form-ingresos">
@@ -71,6 +67,8 @@
                     <select id="cuenta-ingreso" required>
                         <option value="pyme">PYME</option>
                         <option value="libreton">Libreton</option>
+                        <option value="caja_chica">Caja Chica</option>
+                        <option value="caja_grande">Caja Grande</option>
                         <option value="no_aplica">No Aplica</option>
                     </select>
 
@@ -88,51 +86,102 @@
                     <button type="button" id="vaciar-form">Vaciar Formulario</button>
                 </div>
             </form>
+
+            <!-- Notificación de éxito o error -->
+            <div id="notification" class="notification"></div>
         </div>
     </div>
+
+
+
+    
 
     <script>
         const form = document.getElementById('form-ingresos');
         const vaciarFormBtn = document.getElementById('vaciar-form');
-        
-        // Guardar datos
+        const notification = document.getElementById('notification');
+
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const fecha = document.getElementById('fecha-ingreso').value;
-            const concepto = document.getElementById('concepto-ingreso').value;
-            const importe = document.getElementById('importe-ingreso').value;
-            const lugar = document.getElementById('lugar-ingreso').value;
-            const cuenta = document.getElementById('cuenta-ingreso').value;
-            const formaPago = document.getElementById('forma_pago').value;
+    e.preventDefault();
 
-            const ingreso = {
-                fecha,
-                concepto,
-                importe,
-                lugar,
-                cuenta,
-                formaPago
-            };
+    const fecha = document.getElementById('fecha-ingreso').value;
+    const concepto = document.getElementById('concepto-ingreso').value;
+    const importe = document.getElementById('importe-ingreso').value;
+    const lugar = document.getElementById('lugar-ingreso').value;
+    const cuenta = document.getElementById('cuenta-ingreso').value;
+    const formaPago = document.getElementById('forma_pago').value;
 
-            // Guardar en localStorage
-            localStorage.setItem('ingreso', JSON.stringify(ingreso));
+    const ingreso = {
+        fecha,
+        concepto,
+        importe,
+        lugar,
+        cuenta,
+        formaPago
+    };
 
-            // Vaciar formulario automáticamente
-            form.reset();
-        });
+    const editIndex = localStorage.getItem('editIndex');
 
-        // Vaciar formulario manualmente (opcional)
+    if (editIndex !== null) {
+        // Si estamos editando, actualizamos el ingreso en el array
+        const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos')) || [];
+        ingresosGuardados[editIndex] = ingreso; // Reemplazar el ingreso con el nuevo
+        localStorage.setItem('ingresos', JSON.stringify(ingresosGuardados));
+        
+        // Limpiar el índice de edición
+        localStorage.removeItem('editIndex');
+    } else {
+        // Si no estamos editando, agregamos el nuevo ingreso
+        const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos')) || [];
+        ingresosGuardados.push(ingreso);
+        localStorage.setItem('ingresos', JSON.stringify(ingresosGuardados));
+    }
+
+    // Mostrar mensaje de éxito
+    notification.classList.remove('error');
+    notification.classList.add('success');
+    notification.textContent = '¡Ingreso guardado exitosamente!';
+    notification.style.display = 'block';
+
+    // Limpiar el formulario
+    form.reset();
+
+    // Ocultar el mensaje después de 2 segundos
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 2000);
+});
+
+
         vaciarFormBtn.addEventListener('click', () => {
             form.reset();
         });
 
-        // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+              // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
         const menuBtn = document.getElementById('menu-btn');
         const sidebar = document.getElementById('sidebar');
 
         menuBtn.addEventListener('click', function() {
             sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
         });
+        window.addEventListener('load', function() {
+    const editIndex = localStorage.getItem('editIndex');
+
+    if (editIndex !== null) {
+        const ingresosGuardados = JSON.parse(localStorage.getItem('ingresos')) || [];
+        const ingresoParaEditar = ingresosGuardados[editIndex];
+
+        // Rellenar el formulario con los datos del registro seleccionado
+        document.getElementById('fecha-ingreso').value = ingresoParaEditar.fecha;
+        document.getElementById('concepto-ingreso').value = ingresoParaEditar.concepto;
+        document.getElementById('importe-ingreso').value = ingresoParaEditar.importe;
+        document.getElementById('lugar-ingreso').value = ingresoParaEditar.lugar;
+        document.getElementById('cuenta-ingreso').value = ingresoParaEditar.cuenta;
+        document.getElementById('forma_pago').value = ingresoParaEditar.formaPago;
+    }
+});
+
     </script>
+
 </body>
 </html>
