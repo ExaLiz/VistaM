@@ -5,73 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="styleadmin.css">
+    <link rel="icon" href="img/vistamar.jpeg"  />
 </head>
 <body>
 
-    <!-- Línea superior con gradiente -->
+
     <div class="linea"></div>
 
-        <!-- Contenedor para el contenido principal -->
-        <div class="content" id="content">   
 
-            <h1 class="insetshadow">Panel de Administración</h1>
- 
-            <div class="waves">
-      <div class="wave circulo a"></div>
-      <div class="wave circulo b"></div>
-      <div class="wave circulo c"></div>
+    <div class="content" id="content">   
+        <h1 class="insetshadow">Panel de Administración</h1>
+    </div>  
+
+
+    <div class="menu-btn" id="menu-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
     </div>
-        </div>  
 
-
-        <!-- Botón de menú (hamburger) -->
-        <div class="menu-btn" id="menu-btn">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-
-        <!-- Barra lateral de navegación -->
-        <div class="sidebar" id="sidebar">
-            <h3>Administrador</h3>
-            <ul>
-                <li><a href="admin/ingresos.html" data-target="ingresos">Registrar Ingresos</a></li>
-                <li><a href="admin/ingreso_resultado.html" data-target="ingreso_resultado">Ver Ingresos</a></li>
-                <li><a href="admin/egresos.html" data-target="egresos">Registrar Egresos</a></li>
-                <li><a href="admin/egreso_resultado.html" data-target="controlingresos">Ver Egresos</a></li>
-                <li><a href="#" data-target="gastos">Gastos</a></li>
-                <li><a href="#" data-target="caja">Caja</a></li>
-                <li><a href="#" data-target="empleados">Empleados</a></li>
-                <li><a href="#" data-target="nominas">Nominas</a></li>
-                <li><a href="#" data-target="reportes">Reportes</a></li>
-                <li><a href="#" data-target="pyme">PYME</a></li>
-                <li><a href="admin/creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
-                <li><a href="#" data-target="libreton">Libreton</a></li>
-                <li><a href="#" data-target="ganado">Ganado</a></li>
-            </ul>
-        </div>
+    <div class="sidebar" id="sidebar">
+        <h3>Administrador</h3>
+        <ul>
+            <li><a href="admin/creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+            <li><a href="admin/ingresos.html" data-target="ingresos">Ingresos</a></li>
+            <li><a href="admin/egresos.html" data-target="egresos">Egresos</a></li>
+            <li><a href="admin/gastos.html" data-target="gastos">Gastos</a></li>
+            <li><a href="admin/nominas.html" data-target="nominas">Nominas</a></li>
+            <li><a href="admin/menu3.html" data-target="reportes">Reportes</a></li>
+            <li><a href="admin/ganado.html" data-target="ganado">Ganado</a></li>
+        </ul>
+    </div>
 
     <script>
-       
 
-        // Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
         const menuBtn = document.getElementById('menu-btn');
         const sidebar = document.getElementById('sidebar');
 
         menuBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
+            sidebar.classList.toggle('open'); 
         });
 
-document.getElementById('menu-btn').addEventListener('click', function() {
-    var menu = document.getElementById('menu');
-    if (menu.style.display === 'block') {
-        menu.style.display = 'none';
-    } else {
-        menu.style.display = 'block';
-    }
-});
-
-
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            var menu = document.getElementById('menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
     </script>
 
 </body>
