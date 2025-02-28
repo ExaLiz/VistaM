@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="egresos.css">
+    <link rel="icon" href="img/vistamar.jpeg" />
+    <title>Egresos</title>
+</head>
+<body>
+    <!-- Línea superior con gradiente -->
+    <div class="linea"></div>
+
+    <!-- Botón de menú (hamburger) -->
+    <div class="menu-btn" id="menu-btn">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+
+    <!-- Barra lateral de navegación -->
+    <div class="sidebar" id="sidebar">
+        <h3>Administrador</h3>
+        <ul>
+            <li><a href="administrador.html" data-target="administrador">Inicio</a></li>
+            <li><a href="creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+            <li><a href="ingresos.html" data-target="ingresos">Registrar Ingresos</a></li>
+            <li><a href="ingreso_resultado.html" data-target="ingreso_resultado">Ver Ingresos</a></li>
+            <li><a href="egreso_resultado.html" data-target="controlingresos">Ver Egresos</a></li>
+            <li><a href="gastos.html" data-target="gastos">Gastos</a></li>
+            <li><a href="caja.html" data-target="caja">Caja</a></li>
+            <li><a href="nominas.html" data-target="nominas">Nominas</a></li>
+            <li><a href="reportes.html" data-target="reportes">Reportes</a></li>
+            <li><a href="pyme.html" data-target="pyme">PYME</a></li>
+            <li><a href="libreton.html" data-target="libreton">Libreton</a></li>
+            <li><a href="ganado.html" data-target="ganado">Ganado</a></li>
+        </ul>
+    </div>
+
+    <header>
+        <h1 class="elegantshadow">Formulario de Egresos</h1><br><br><br>
+    </header>
+    
+    <div class="form-container">
+        <div class="form-box">
+            <form id="form-egresos">
+                <div class="form-row">
+                    <label for="fecha-egreso">Fecha:</label>
+                    <input type="date" id="fecha-egreso" required>
+
+                    <label for="concepto-egreso">Concepto:</label>
+                    <input type="text" id="concepto-egreso" placeholder="Descripción del concepto" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="importe-egreso">Importe:</label>
+                    <input type="number" id="importe-egreso" placeholder="Monto" required>
+
+                    <label for="lugar-egreso">Origen:</label>
+                    <select id="lugar-egreso" required>
+                        <option value="agua_blanca">Agua Blanca</option>
+                        <option value="cuatunalco">Cuatunalco</option>
+                        <option value="rancho">Rancho</option>
+                        <option value="villa">Villa</option>
+                        <option value="casa_pochutla">Casa Pochutla</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="cuenta-egreso">Cuenta:</label>
+                    <select id="cuenta-egreso" required>
+                        <option value="pyme">PYME</option>
+                        <option value="libreton">Libreton</option>
+                        <option value="no_aplica">No Aplica</option>
+                    </select>
+
+                    <label for="forma_pago">Forma de pago:</label>
+                    <select id="forma_pago" required>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="tarjeta_credito">Tarjeta de Crédito</option>
+                        <option value="tarjeta_debito">Tarjeta de Débito</option>
+                    </select>
+                </div>
+
+                <div class="btn-container">
+                    <button type="submit">Guardar Egreso</button>
+                    <button type="button" id="vaciar-form">Vaciar Formulario</button>
+                </div>
+            </form>
+
+            <!-- Notificación de éxito o error -->
+            <div id="notification" class="notification"></div>
+        </div>
+    </div>
+
+    <script>
+const form = document.getElementById('form-egresos');
+const vaciarFormBtn = document.getElementById('vaciar-form');
+const notification = document.getElementById('notification');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fecha = document.getElementById('fecha-egreso').value;
+    const concepto = document.getElementById('concepto-egreso').value;
+    const importe = document.getElementById('importe-egreso').value;
+    const lugar = document.getElementById('lugar-egreso').value;
+    const cuenta = document.getElementById('cuenta-egreso').value;
+    const formaPago = document.getElementById('forma_pago').value;
+
+    const egreso = {
+        fecha,
+        concepto,
+        importe,
+        lugar,
+        cuenta,
+        formaPago
+    };
+
+    const editIndex = localStorage.getItem('editIndex');
+
+    if (editIndex !== null) {
+        // Si estamos editando, actualizamos el egreso en el array
+        const egresosGuardados = JSON.parse(localStorage.getItem('egresos')) || [];
+        egresosGuardados[editIndex] = egreso; // Reemplazar el egreso con el nuevo
+        localStorage.setItem('egresos', JSON.stringify(egresosGuardados));
+        
+        // Limpiar el índice de edición
+        localStorage.removeItem('editIndex');
+    } else {
+        // Si no estamos editando, agregamos el nuevo egreso
+        const egresosGuardados = JSON.parse(localStorage.getItem('egresos')) || [];
+        egresosGuardados.push(egreso);
+        localStorage.setItem('egresos', JSON.stringify(egresosGuardados));
+    }
+
+    // Mostrar mensaje de éxito
+    notification.classList.remove('error');
+    notification.classList.add('success');
+    notification.textContent = '¡Egreso guardado exitosamente!';
+    notification.style.display = 'block';
+
+    // Limpiar el formulario
+    form.reset();
+
+    // Ocultar el mensaje después de 2 segundos
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 2000);
+});
+
+vaciarFormBtn.addEventListener('click', () => {
+    form.reset();
+});
+
+// Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+const menuBtn = document.getElementById('menu-btn');
+const sidebar = document.getElementById('sidebar');
+
+menuBtn.addEventListener('click', function() {
+    sidebar.classList.toggle('open'); // Añadir o quitar clase para abrir/cerrar
+});
+
+window.addEventListener('load', function() {
+    const editIndex = localStorage.getItem('editIndex');
+
+    if (editIndex !== null) {
+        const egresosGuardados = JSON.parse(localStorage.getItem('egresos')) || [];
+        const egresoParaEditar = egresosGuardados[editIndex];
+
+        // Rellenar el formulario con los datos del registro seleccionado
+        document.getElementById('fecha-egreso').value = egresoParaEditar.fecha;
+        document.getElementById('concepto-egreso').value = egresoParaEditar.concepto;
+        document.getElementById('importe-egreso').value = egresoParaEditar.importe;
+        document.getElementById('lugar-egreso').value = egresoParaEditar.lugar;
+        document.getElementById('cuenta-egreso').value = egresoParaEditar.cuenta;
+        document.getElementById('forma_pago').value = egresoParaEditar.formaPago;
+    }
+});
+
+
+    </script>
+</body>
+</html>
