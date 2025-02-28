@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="egreso_resultado.css">
+    <link rel="icon" href="img/vistamar.jpeg" />
+    <title>Control de Egresos</title>
+</head>
+<body>
+    <div class="linea">
+        <!-- Botón de menú (hamburger) -->
+        <div class="menu-btn" id="menu-btn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <!-- Barra lateral de navegación -->
+        <div class="sidebar" id="sidebar">
+            <h3>Administrador</h3>
+            <ul>
+                <li><a href="administrador.html" data-target="administrador">Inicio</a></li>
+                <li><a href="creacion_usuarios.html" data-target="gestion_usuarios">Gestión de usuarios</a></li>
+                <li><a href="ingresos.html" data-target="registrar_resultado">Registrar Ingresos</a></li>
+                <li><a href="egresos.html" data-target="registrar_egresos">Registrar Egresos</a></li>
+                <li><a href="ingreso_resultado.html" data-target="controlingresos">Ver Ingresos</a></li>
+                <li><a href="gastos.html" data-target="gastos">Gastos</a></li>
+                <li><a href="caja.html" data-target="caja">Caja</a></li>
+                <li><a href="nominas.html" data-target="nominas">Nominas</a></li>
+                <li><a href="reportes.html" data-target="reportes">Reportes</a></li>
+                <li><a href="pyme.html" data-target="pyme">PYME</a></li>
+                <li><a href="libreton.html" data-target="libreton">Libreton</a></li>
+                <li><a href="ganado.html" data-target="ganado">Ganado</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <header>
+        <h1 class="elegantshadow">Control de Egresos</h1><br>
+    </header>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="table-container">
+                <table id="tabla-egreso">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Importe</th>
+                            <th>Origen</th>
+                            <th>Cuenta</th>
+                            <th>Forma de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se insertarán los datos dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botones de Editar y Eliminar fuera de la tabla -->
+            <div class="actions-container">
+                <button id="edit-btn" disabled>Editar</button>
+                <button id="delete-btn" disabled>Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const egresosGuardados = JSON.parse(localStorage.getItem('egresos')) || [];
+const tableBody = document.querySelector('#tabla-egreso tbody');
+const editBtn = document.getElementById('edit-btn');
+const deleteBtn = document.getElementById('delete-btn');
+let selectedIndex = null; // Almacenar el índice del registro seleccionado
+
+if (egresosGuardados.length > 0) {
+    egresosGuardados.forEach((egreso, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${egreso.fecha}</td>
+            <td>${egreso.concepto}</td>
+            <td>${egreso.importe}</td>
+            <td>${egreso.lugar}</td>
+            <td>${egreso.cuenta}</td>
+            <td>${egreso.formaPago}</td>
+        `;
+        row.setAttribute('data-index', index);  // Asignar un atributo de índice
+        tableBody.appendChild(row);
+    });
+} else {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td colspan="6">No hay datos disponibles</td>`;
+    tableBody.appendChild(row);
+}
+
+// Seleccionar el registro al hacer clic en una fila
+tableBody.addEventListener('click', function(event) {
+    const row = event.target.closest('tr');
+    if (row) {
+        const index = row.getAttribute('data-index');
+
+        // Resaltar la fila seleccionada
+        document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        
+        selectedIndex = index; // Almacenar el índice de la fila seleccionada
+
+        // Habilitar los botones de edición y eliminación
+        editBtn.disabled = false;
+        deleteBtn.disabled = false;
+    }
+});
+
+// Función para eliminar el registro seleccionado
+deleteBtn.addEventListener('click', function() {
+    if (selectedIndex !== null) {
+        egresosGuardados.splice(selectedIndex, 1); // Eliminar el registro del arreglo
+        localStorage.setItem('egresos', JSON.stringify(egresosGuardados)); // Guardar los cambios en localStorage
+        location.reload(); // Recargar la página para actualizar la tabla
+    }
+});
+
+// Función para editar el registro seleccionado
+editBtn.addEventListener('click', function() {
+    if (selectedIndex !== null) {
+        // Guardar el índice del registro que estamos editando en localStorage
+        localStorage.setItem('editIndex', selectedIndex);
+
+        // Redirigir a la página de formulario para editar
+        window.location.href = 'egresos.html';
+    }
+});
+
+// Funcionalidad para abrir y cerrar el menú cuando se hace clic en el botón
+const menuBtn = document.getElementById('menu-btn');
+const sidebar = document.getElementById('sidebar');
+
+menuBtn.addEventListener('click', function() {
+    sidebar.classList.toggle('open');
+});
+
+// Añadir la clase 'selected' al hacer clic en una fila
+const rows = document.querySelectorAll('#tabla-egreso tr');
+rows.forEach(row => {
+    row.addEventListener('click', function() {
+        rows.forEach(r => r.classList.remove('selected')); // Elimina la clase de todas las filas
+        this.classList.add('selected'); // Añade la clase solo a la fila seleccionada
+    });
+});
+
+    </script>
+
+</body>
+</html>
+ 
